@@ -6,6 +6,12 @@ const accountStack = {
     forgotPassword: 'ForgotPassword',
 };
 
+const homeStack = {
+    tab: 'HomeTab',
+    home: 'Home',
+};
+
 export const screenName = {
-    accountStack: accountStack,
+    account: accountStack,
+    home: homeStack,
 }
