@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
-import { View, Text } from 'react-native'
-import {Button, Input, Icon} from '@rneui/base'
-import {initialValues, validationSchema} from './LogInScreen.data'
+import React, { useState } from 'react'
+import { View, ImageBackground } from 'react-native'
+import { Button, Input, Icon, Text } from '@rneui/base'
+import { initialValues, validationSchema } from './LogInScreen.data'
 import { useNavigation } from '@react-navigation/native'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import Toast from 'react-native-toast-message'
 import { useFormik } from 'formik';
 
 import { firebaseAuthStatePersistance } from '../../../utilities/config/firebase'
-import {screenName} from '../../../utilities/'
+import { screenName } from '../../../utilities/'
 
 import { styles } from './LogInScreen.styles'
 
@@ -60,42 +60,65 @@ export function LogInScreen() {
 
 
     return (
-        <View style={styles.content}>
-            <Input
-                placeholder="Correo electrónico"
-                containerStyle={styles.input}
-                rightIcon={
-                    <Icon
-                        type="entypo"
-                        name="email"
-                        iconStyle={styles.icon}
+        <ImageBackground
+            source={require('../../../../assets/login-background.png')}
+            style={styles.backgroundImage}
+
+        >
+            <View style={styles.content}>
+                <View style={styles.form}>
+                    <Text h3 style={styles.textRegister}>Iniciar sesión</Text>
+                    <Input
+                        placeholder="Correo electrónico"
+                        containerStyle={styles.input}
+                        rightIcon={
+                            <Icon
+                                type="entypo"
+                                name="email"
+                                iconStyle={styles.icon}
+                            />
+                        }
+                        onChangeText={(text) => formik.setFieldValue('email', text)}
+                        errorMessage={formik.errors.email}
                     />
-                }
-                onChangeText={(text) => formik.setFieldValue('email', text)}
-                errorMessage={formik.errors.email}
-            />
-            <Input
-                placeholder="Contraseña"
-                containerStyle={styles.input}
-                password={true}
-                secureTextEntry={!showPassword}
-                rightIcon={
-                    <Icon
-                        type="material-community"
-                        name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                        onPress={handleShowPassword}
-                        iconStyle={styles.icon}
+                    <Input
+                        placeholder="Contraseña"
+                        containerStyle={styles.input}
+                        password={true}
+                        secureTextEntry={!showPassword}
+                        rightIcon={
+                            <Icon
+                                type="material-community"
+                                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                                onPress={handleShowPassword}
+                                iconStyle={styles.icon}
+                            />
+                        }
+                        onChangeText={(text) => formik.setFieldValue('password', text)}
+                        errorMessage={formik.errors.password}
                     />
-                }
-                onChangeText={(text) => formik.setFieldValue('password', text)}
-                errorMessage={formik.errors.password}
-            />
-            <Button
-                title={"Iniciar sesión"}
-                buttonStyle={styles.btnRegister}
-                onPress={formik.handleSubmit}
-                loading={formik.isSubmitting}
-            />
-        </View>
+                    <Button
+                        title={"Iniciar sesión"}
+                        buttonStyle={styles.btnRegister}
+                        onPress={formik.handleSubmit}
+                        loading={formik.isSubmitting}
+                    />
+                    <View style={styles.actionsView}>
+                        <Text
+                            style={styles.textAction}>¿No tienes cuenta? <Text
+                                style={styles.btnAction}
+                                onPress={() => navigation.navigate(screenName.auth.register)}>Regístrate
+                            </Text>
+                        </Text>
+                        <Text
+                            style={styles.textAction}>¿Olvidaste tu contraseña? <Text
+                                style={styles.btnAction}
+                                onPress={() => navigation.navigate(screenName.auth.forgotPassword)}>Recuperar contraseña
+                            </Text>
+                        </Text>
+                    </View>
+                </View>
+            </View>
+        </ImageBackground >
     )
 }
