@@ -1,12 +1,10 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-import { styles } from './Home.styles'
-
-export function Home() {
+export function HomeScreen() {
   return (
     <View>
-      <Text>Home</Text>
+      <Text>HomeScreen</Text>
     </View>
   )
 }

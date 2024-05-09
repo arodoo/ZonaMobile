@@ -28,7 +28,7 @@ export function LogInScreen() {
         onSubmit: async (formValue) => {
             try {
                 await signInWithEmailAndPassword(
-                    auth,
+                    firebaseAuthStatePersistance,
                     formValue.email,
                     formValue.password
                 ).then((userCredentials) => {
@@ -42,7 +42,8 @@ export function LogInScreen() {
                         topOffset: 30,
                         bottomOffset: 40,
                     })
-                    navigation.navigate(screen.account.account)
+                   
+                    navigation.navigate(screenName.home.tab)
                 })
             } catch (error) {
                 Toast.show({
@@ -113,7 +114,7 @@ export function LogInScreen() {
                         <Text
                             style={styles.textAction}>¿Olvidaste tu contraseña? <Text
                                 style={styles.btnAction}
-                                onPress={() => navigation.navigate(screenName.auth.forgotPassword)}>Recuperar contraseña
+                                onPress={() => navigation.navigate('ForgotPassword')}>Recuperar contraseña
                             </Text>
                         </Text>
                     </View>

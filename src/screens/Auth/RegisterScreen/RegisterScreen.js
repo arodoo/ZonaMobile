@@ -31,7 +31,7 @@ export function RegisterScreen() {
           formValue.email,
           formValue.password
         );
-        navigation.navigate(screen.account.account)
+        navigation.navigate('Home')
       } catch (error) {
         Toast.show({
           type: 'error',

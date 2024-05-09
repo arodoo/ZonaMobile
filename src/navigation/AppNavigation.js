@@ -1,9 +1,10 @@
 import React from 'react';
-import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
+import { Icon } from '@rneui/base';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AuthStack, HomeStack, } from './index';
-import { LogInScreen, RegisterScreen } from '../screens';
+import { LogInScreen, RegisterScreen, ForgotPasswordScreen,HomeScreen } from '../screens';
+
 import {screenName} from '../utilities'
 
 const Stack = createNativeStackNavigator();
@@ -14,12 +15,13 @@ export function MainStackNavigator() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name={screenName.account.login} component={LogInScreen} />
             <Stack.Screen name={screenName.account.register} component={RegisterScreen} />
+            <Stack.Screen name={screenName.account.forgotPassword} component={ForgotPasswordScreen} />
         </Stack.Navigator>
     );
 }
 
 
-export default function AppNavigation() {
+export function AppNavigation() {
     return (
         <Tab.Navigator screenOptions={({ route }) => ({
             headerShown: false,
@@ -31,10 +33,6 @@ export default function AppNavigation() {
                 name={screenName.home.tab}
                 component={HomeStack}
                 options={{ title: 'Home' }} />
-            <Tab.Screen
-                name={screenName.account.tab}
-                component={AuthStack}
-                options={{ title: 'Account' }} />
         </Tab.Navigator>
     );
 
@@ -43,9 +41,6 @@ export default function AppNavigation() {
         if (route.name === screenName.home.tab) {
             iconName = 'home';
         } 
-        if (route.name === screenName.account.tab) {
-            iconName = 'account';
-        }
         return <Icon
         type="material-community"
         name={iconName}
