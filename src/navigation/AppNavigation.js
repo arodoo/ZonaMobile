@@ -2,7 +2,8 @@ import React from 'react';
 import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AuthStack, HomeStack } from './index';
+import { AuthStack, HomeStack, } from './index';
+import { LogInScreen, RegisterScreen } from '../screens';
 import {screenName} from '../utilities'
 
 const Stack = createNativeStackNavigator();
@@ -11,8 +12,8 @@ const Tab = createBottomTabNavigator();
 export function MainStackNavigator() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name={screenName.account.login} component={AuthStack} />
-            <Stack.Screen name={screenName.home.home} component={HomeStack} />
+            <Stack.Screen name={screenName.account.login} component={LogInScreen} />
+            <Stack.Screen name={screenName.account.register} component={RegisterScreen} />
         </Stack.Navigator>
     );
 }

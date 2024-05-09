@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { View, ImageBackground } from 'react-native'
 import { Button, Input, Icon, Text } from '@rneui/base'
-import { initialValues, validationSchema } from './LogInScreen.data'
 import { useNavigation } from '@react-navigation/native'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import Toast from 'react-native-toast-message'
 import { useFormik } from 'formik';
 
+import { initialValues, validationSchema } from './LogInScreen.data'
 import { firebaseAuthStatePersistance } from '../../../utilities/config/firebase'
 import { screenName } from '../../../utilities/'
 
@@ -107,7 +107,7 @@ export function LogInScreen() {
                         <Text
                             style={styles.textAction}>¿No tienes cuenta? <Text
                                 style={styles.btnAction}
-                                onPress={() => navigation.navigate(screenName.auth.register)}>Regístrate
+                                onPress={() => navigation.navigate('Register')}>Regístrate
                             </Text>
                         </Text>
                         <Text
