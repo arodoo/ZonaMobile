@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { TouchableOpacity } from 'react-native';
+import { Icon } from '@rneui/base';
 
-export function goBackBtn() {
-  return (
-    <View>
-      <Text>goBackBtn</Text>
-    </View>
-  )
-}
+
+export const goBackBtn = ({ onPress }) => (
+    <TouchableOpacity onPress={onPress}>
+        <Icon name="arrow-back" size={24} color="#000" />
+    </TouchableOpacity>
+);
+
