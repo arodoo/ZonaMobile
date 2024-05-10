@@ -32,7 +32,7 @@ export function AppNavigation() {
             <Tab.Screen
                 name={screenName.home.tab}
                 component={HomeStack}
-                options={{ title: 'Home' }} />
+                options={{ title: 'Inicio' }} />
         </Tab.Navigator>
     );
 
