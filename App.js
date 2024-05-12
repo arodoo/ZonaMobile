@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import * as Font from 'expo-font';
 import { MainStackNavigator, AppNavigation } from './src/navigation/AppNavigation';
 import { LogInScreen } from './src/screens';
-import { firebaseAuthStatePersistance } from './src/utilities/config/firebase'; // Asegúrate de que la ruta sea correcta
+import { firebaseAuthStatePersistance } from './src/utilities/config/firebase'; 
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

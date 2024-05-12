@@ -7,7 +7,7 @@ import { Icon } from '@rneui/base';
 export const MenuBtn = ({ onPress }) => {
     return (
         <TouchableOpacity onPress={onPress}>
-            <Icon name="menu" size={44} color="#000" />
+            <Icon name="menu" size={40} color="#000" />
         </TouchableOpacity>
     )
 }
