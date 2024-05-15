@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { Map } from '../../../components';
 import { MainAppTemplate } from '../../../components'
 
-export function HomeScreen() {
+export function MapScreen() {
   const headerProps = {
-    title: 'Inicio',
+    title: 'Mapa',
     onBackPress: () => console.log('Volver atrás'),
     onMenuPress: () => console.log('Abrir menú'),
     onAvatarPress: () => console.log('Perfil del usuario'),
@@ -12,7 +13,7 @@ export function HomeScreen() {
   };
   return (
     <MainAppTemplate headerProps={headerProps}>
-      <Text>Contenido de la pantalla</Text>
+      <Map />
     </MainAppTemplate>
-  );
+  )
 }

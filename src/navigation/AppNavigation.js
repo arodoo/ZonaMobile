@@ -2,10 +2,10 @@ import React from 'react';
 import { Icon } from '@rneui/base';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AuthStack, HomeStack, } from './index';
-import { LogInScreen, RegisterScreen, ForgotPasswordScreen,HomeScreen } from '../screens';
+import { AuthStack, HomeStack, MapStack} from './index';
+import { LogInScreen, RegisterScreen, ForgotPasswordScreen } from '../screens';
 
-import {screenName} from '../utilities'
+import { screenName } from '../utilities'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,6 +33,10 @@ export function AppNavigation() {
                 name={screenName.home.tab}
                 component={HomeStack}
                 options={{ title: 'Inicio' }} />
+            <Tab.Screen
+                name={screenName.map.tab}
+                component={MapStack}
+                options={{ title: 'Mapa' }} />
         </Tab.Navigator>
     );
 
@@ -40,12 +44,15 @@ export function AppNavigation() {
         let iconName;
         if (route.name === screenName.home.tab) {
             iconName = 'home';
-        } 
+        }
+        if (route.name === screenName.map.tab) {
+            iconName = 'map';
+        }
         return <Icon
-        type="material-community"
-        name={iconName}
-        size={size}
-        color={color}
+            type="material-community"
+            name={iconName}
+            size={size}
+            color={color}
         />;
     }
 } 

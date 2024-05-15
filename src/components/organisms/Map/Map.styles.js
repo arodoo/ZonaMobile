@@ -1,5 +1,8 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../../styles";
 
 export const styles = StyleSheet.create({
-    });
+    map: {
+        width: '100%',
+        height: '100%',
+    }
+})

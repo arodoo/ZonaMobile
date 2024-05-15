@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Header } from '../../molecules';
 
-export const HomeTemplate = ({ children, headerProps }) => {
+export const MainAppTemplate = ({ children, headerProps }) => {
     return (
         <SafeAreaView style={styles.container}>
             <Header {...headerProps} />
