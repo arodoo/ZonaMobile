@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Icon } from '@rneui/base';
@@ -13,20 +13,27 @@ export function ExpandableButton({ options }) {
         value: option.label,
     }));
 
-    const onValueChange = () => {
-        const option = options.find((option) => option.label === selectedLabel);
-        option.onPress();
+    useEffect(() => {
+        if (selectedLabel) {
+            const option = options.find((option) => option.label === selectedLabel);
+            option.onPress();
+        }
+    }, [selectedLabel]);
+
+    const onValueChange = (value) => {
+        setSelectedLabel(value);
     };
-        
+
 
     return (
         <View>
             <DropDownPicker
                 items={items}
                 open={open}
-                setOpen={setOpen}
                 value={selectedLabel}
-                setValue={onValueChange}
+                onChangeValue={onValueChange}
+                setOpen={setOpen}
+                setValue={setSelectedLabel}
                 placeholder="Selecciona una opción"
                 containerStyle={styles.container}
                 style={styles.button}
