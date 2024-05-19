@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from '@rneui/base';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AuthStack, HomeStack, MapStack} from './index';
+import { AuthStack, HomeStack, MapStack,EmergencyPhoneStack} from './index';
 import { LogInScreen, RegisterScreen, ForgotPasswordScreen } from '../screens';
 
 import { screenName } from '../utilities'
@@ -37,6 +37,10 @@ export function AppNavigation() {
                 name={screenName.map.tab}
                 component={MapStack}
                 options={{ title: 'Mapa' }} />
+            <Tab.Screen
+                name={screenName.phoneNumbers.tab}
+                component={EmergencyPhoneStack}
+                options={{ title: 'Teléfonos de emergencia' }} />
         </Tab.Navigator>
     );
 
@@ -47,6 +51,9 @@ export function AppNavigation() {
         }
         if (route.name === screenName.map.tab) {
             iconName = 'map';
+        }
+        if (route.name === screenName.phoneNumbers.tab) {
+            iconName = 'phone';
         }
         return <Icon
             type="material-community"

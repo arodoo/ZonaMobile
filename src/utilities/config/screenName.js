@@ -16,8 +16,14 @@ const mapStack = {
     map: 'Map',
 };
 
+const phoneNumbersStack = {
+    tab: 'PhoneNumbersTab',
+    phoneNumbers: 'PhoneNumbers',
+};
+
 export const screenName = {
     account: accountStack,
     home: homeStack,
     map: mapStack,
+    phoneNumbers: phoneNumbersStack,
 }
