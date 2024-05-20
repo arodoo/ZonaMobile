@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from '@rneui/base';
 
 export function CenterButton({ iconName, onPress, isExpanded }) {
+
   return (
     <View>
         <View style={styles.container}>
@@ -24,7 +25,9 @@ export function CenterButton({ iconName, onPress, isExpanded }) {
                             color={'#e91e63'}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.miniButton}>
+                    <TouchableOpacity style={[styles.miniButton, {
+                        top: -80,
+                    }] }>
                         <Icon
                             type='material-community'
                             name='map'
@@ -50,10 +53,11 @@ export function CenterButton({ iconName, onPress, isExpanded }) {
 const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 10,
         left: 0,
         right: 0,
         alignItems: 'center',
+        zIndex: 1,
     },
     button: {
         width: 60,
@@ -69,14 +73,14 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5,
+        elevation: 8,
     },
     expandedContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 20,
         position: 'absolute',
-        top: -90,
+        top: -110,
         left: -170,
         right: -170,
         alignItems: 'center',
