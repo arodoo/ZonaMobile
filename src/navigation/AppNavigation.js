@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Icon } from '@rneui/base';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AuthStack, HomeStack, MapStack,EmergencyPhoneStack} from './index';
+import { AuthStack, HomeStack, MapStack, EmergencyPhoneStack, ProfileStack } from './index';
 import { LogInScreen, RegisterScreen, ForgotPasswordScreen } from '../screens';
+import { CenterButton } from '../components/atoms'
 
 import { screenName } from '../utilities'
 
@@ -20,8 +21,9 @@ export function MainStackNavigator() {
     );
 }
 
-
 export function AppNavigation() {
+
+    const [isExpanded, setIsExpanded] = useState(false);
     return (
         <Tab.Navigator screenOptions={({ route }) => ({
             headerShown: false,
@@ -38,9 +40,34 @@ export function AppNavigation() {
                 component={MapStack}
                 options={{ title: 'Mapa' }} />
             <Tab.Screen
+                name={'CenterButton'}
+                component={CenterButton}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Icon
+                            name = {isExpanded ? 'close' : 'plus'}
+                            size={30}
+                            color={'#e91e63'}
+                        />
+                    ),
+                    tabBarButton: (props) => (
+                        <CenterButton
+                            {...props}
+                            iconName={isExpanded ? 'close' : 'plus'}
+                            onPress={() => setIsExpanded(!isExpanded)}
+                            isExpanded={isExpanded}
+                        />
+                    )
+                }}
+            />
+            <Tab.Screen
                 name={screenName.phoneNumbers.tab}
                 component={EmergencyPhoneStack}
                 options={{ title: 'Teléfonos de emergencia' }} />
+            <Tab.Screen
+                name={screenName.profile.tab}
+                component={ProfileStack}
+                options={{ title: 'Perfil' }} />
         </Tab.Navigator>
     );
 
@@ -54,6 +81,9 @@ export function AppNavigation() {
         }
         if (route.name === screenName.phoneNumbers.tab) {
             iconName = 'phone';
+        }
+        if (route.name === screenName.profile.tab) {
+            iconName = 'account';
         }
         return <Icon
             type="material-community"

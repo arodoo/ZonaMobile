@@ -21,9 +21,15 @@ const phoneNumbersStack = {
     phoneNumbers: 'PhoneNumbers',
 };
 
+const profileStack = {
+    tab: 'ProfileTab',
+    profile: 'Profile',
+};
+
 export const screenName = {
     account: accountStack,
     home: homeStack,
     map: mapStack,
     phoneNumbers: phoneNumbersStack,
+    profile: profileStack,
 }
