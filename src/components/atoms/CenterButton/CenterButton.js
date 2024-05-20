@@ -52,8 +52,7 @@ export function CenterButton({ iconName, onPress, isExpanded }) {
 
 const styles = StyleSheet.create({
     container: {
-        position: 'absolute',
-        bottom: 10,
+        bottom: 25,
         left: 0,
         right: 0,
         alignItems: 'center',

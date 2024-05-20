@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigationState } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/base';
-import { View, TouchableOpacity, Keyboard } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AuthStack, HomeStack, MapStack, EmergencyPhoneStack, ProfileStack } from './index';
@@ -26,13 +27,17 @@ export function MainStackNavigator() {
 export function AppNavigation() {
 
     const [isExpanded, setIsExpanded] = useState(false);
-    const stateIndex = useNavigationState(state => state.index);
+    const navigation = useNavigation();
 
     useEffect(() => {
-        if (isExpanded) {
-            setIsExpanded(false);
-        }
-    }, [stateIndex]); 
+        const unsubscribe = navigation.addListener('state', (e) => {
+            const currentIndex = e.data.state.index;
+            if (isExpanded && currentIndex !== undefined) {
+                setIsExpanded(false);
+            }
+        });
+        return unsubscribe;
+    }, [navigation, isExpanded]);
 
     return (
         <View style={{ flex: 1 }}>
@@ -60,11 +65,13 @@ export function AppNavigation() {
                         component={CenterButton}
                         options={{
                             tabBarIcon: ({ }) => (
-                                <Icon
-                                    name={isExpanded ? 'close' : 'plus'}
-                                    size={30}
-                                    color={'#e91e63'}
-                                />
+                                <View>
+                                    <Icon
+                                        name={isExpanded ? 'close' : 'plus'}
+                                        size={30}
+                                        color={'#e91e63'}
+                                    />
+                                </View>
                             ),
                             tabBarButton: (props) => (
                                 <CenterButton
@@ -74,10 +81,10 @@ export function AppNavigation() {
                                     isExpanded={isExpanded}
                                 />
                             ),
-                            listeners: 
-                                {
-                                    tabPress: (e) => {
-                                        setIsExpanded(false);
+                            listeners:
+                            {
+                                tabPress: (e) => {
+                                    setIsExpanded(false);
                                 }
                             }
                         }}
@@ -117,3 +124,4 @@ export function AppNavigation() {
         />;
     }
 } 
+
