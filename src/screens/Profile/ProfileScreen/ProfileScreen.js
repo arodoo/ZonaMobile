@@ -4,7 +4,7 @@ import { Button } from '@rneui/base'
 import { getAuth, signOut } from 'firebase/auth'
 import Toast from 'react-native-toast-message'
 import { MainAppTemplate } from '../../../components'
-import {AccountOptions, ChangueDisplayNameForm} from '../../../components'
+import {AccountOptions, ChangueDisplayNameForm,InfoUser } from '../../../components'
 import {LoadingModal} from '../../../components'
 import {styles} from './ProfileScreen.styles'
 

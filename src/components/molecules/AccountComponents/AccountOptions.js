@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import { Icon, ListItem } from '@rneui/base'
 import map from 'lodash/map'
 import { Modal } from '../../Shared'
-import { ChangueDisplayNameForm } from './index'
+import { ChangueDisplayNameForm } from './ChangeDisplayNameForm/ChangueDisplayNameForm'
 
 export function AccountOptions(props) {
 
