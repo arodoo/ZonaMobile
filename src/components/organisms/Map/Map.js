@@ -57,9 +57,9 @@ export function Map() {
   ]
   return (
     <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+{/*       <View style={styles.buttonContainer}>
         <ExpandableButton options={options} />
-      </View>
+      </View> */}
       <MapView
         style={styles.map}
         region={region}
