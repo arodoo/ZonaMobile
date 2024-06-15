@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/base';
 import { View, TouchableOpacity } from 'react-native';
-import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AuthStack, HomeStack, MapStack, EmergencyPhoneStack, ProfileStack } from './index';
+import { HomeStack, MapStack, ProfileStack, ChatsStack} from './index';
 import { LogInScreen, RegisterScreen, ForgotPasswordScreen } from '../screens';
 import { CenterButton } from '../components/atoms'
 
@@ -90,9 +89,9 @@ export function AppNavigation() {
                         }}
                     />
                     <Tab.Screen
-                        name={screenName.phoneNumbers.tab}
-                        component={EmergencyPhoneStack}
-                        options={{ title: 'Teléfonos de emergencia' }} />
+                        name={screenName.chats.tab}
+                        component={ChatsStack}
+                        options={{ title: 'Chats' }} />
                     <Tab.Screen
                         name={screenName.profile.tab}
                         component={ProfileStack}
@@ -110,8 +109,8 @@ export function AppNavigation() {
         if (route.name === screenName.map.tab) {
             iconName = 'map';
         }
-        if (route.name === screenName.phoneNumbers.tab) {
-            iconName = 'phone';
+        if (route.name === screenName.chats.tab) {
+            iconName = 'chat';
         }
         if (route.name === screenName.profile.tab) {
             iconName = 'account';

@@ -5,13 +5,14 @@ import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDIcxfT2hf6HBsUUfPzWGQoRpi7FVZV-TQ",
-    authDomain: "zonamobile-f259b.firebaseapp.com",
-    projectId: "zonamobile-f259b",
-    storageBucket: "zonamobile-f259b.appspot.com",
-    messagingSenderId: "1045766243409",
-    appId: "1:1045766243409:web:ff485810b7e38134c02470",
-    measurementId: "G-FLFYGFMJR9"
+    apiKey: "AIzaSyCRcSENT-xtLidMoOOg7LeRgi8ycjEtJkk",
+    authDomain: "zona-admon.firebaseapp.com",
+    databaseURL: "https://zona-admon-default-rtdb.firebaseio.com",
+    projectId: "zona-admon",
+    storageBucket: "zona-admon.appspot.com",
+    messagingSenderId: "1051108258363",
+    appId: "1:1051108258363:web:c9cf9400d6eadbb356221e",
+    measurementId: "G-B2LVZDT3M5"
 };
 
 // Initialize Firebase

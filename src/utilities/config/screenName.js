@@ -26,10 +26,17 @@ const profileStack = {
     profile: 'Profile',
 };
 
+const ChatsStack = {
+    tab: 'ChatsTab',
+    chats: 'Chats',
+    chat: 'Chat',    
+};
+
 export const screenName = {
     account: accountStack,
     home: homeStack,
     map: mapStack,
     phoneNumbers: phoneNumbersStack,
     profile: profileStack,
+    chats: ChatsStack,
 }

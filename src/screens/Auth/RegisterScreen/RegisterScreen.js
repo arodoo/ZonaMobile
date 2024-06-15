@@ -7,7 +7,6 @@ import Toast from 'react-native-toast-message'
 import { useFormik } from 'formik'
 
 import { initialValues, validationSchema } from './RegisterScreen.data'
-import { screenName } from '../../../utilities'
 import { styles } from './RegisterScreen.styles'
 
 export function RegisterScreen() {

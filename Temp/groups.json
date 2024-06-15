@@ -1,0 +1,80 @@
+{
+    "Entities": [
+        {
+            "Name": "Users",
+            "Attributes": [
+                {
+                    "Name": "user_id",
+                    "Type": "UUID",
+                    "PrimaryKey": true
+                },
+                {
+                    "Name": "Email",
+                    "Type": "String"
+                },
+                {
+                    "Name": "Password",
+                    "Type": "String"
+                }
+            ]
+        },
+        {
+            "Name": "Groups",
+            "Attributes": [
+                {
+                    "Name": "group_id",
+                    "Type": "UUID",
+                    "PrimaryKey": true
+                },
+                {
+                    "Name": "Name",
+                    "Type": "String"
+                },
+                {
+                    "Name": "Active",
+                    "Type": "Boolean"
+                }
+            ]
+        },
+        {
+            "Name": "Messages",
+            "Attributes": [
+                {
+                    "Name": "message_id",
+                    "Type": "UUID",
+                    "PrimaryKey": true
+                },
+                {
+                    "Name": "Content",
+                    "Type": "String"
+                },
+                {
+                    "Name": "Timestamp",
+                    "Type": "DateTime"
+                },
+                {
+                    "Name": "Sent_by",
+                    "Type": "UUID"
+                }
+            ]
+        }
+    ],
+    "Relationships": [
+        {
+            "Name": "Group_has_members",
+            "Type": "ManyToMany",
+            "EntityOrigin": "Groups",
+            "EntityDestination": "Users",
+            "ForeignKeyOrigin": "group_id",
+            "ForeignKeyDestination": "user_id"
+        },
+        {
+            "Name": "message_sent_by",
+            "Type": "OneToMany",
+            "EntityOrigin": "Users",
+            "EntityDestination": "Messages",
+            "ForeignKeyOrigin": "user_id",
+            "ForeignKeyDestination": "Sent_by"
+        }
+    ]
+}
