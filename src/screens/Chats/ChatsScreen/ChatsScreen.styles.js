@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
         padding: 16,
         borderBottomWidth: 1,
         borderBottomColor: "#E0E0E0",
+        
     },
     groupName: {
         fontSize: 16,

@@ -27,12 +27,15 @@ export function ChatsScreen() {
     const groupsCollection = collection(db, 'groups');
     const getGroups = async () => {
       const groupsSnapshot = await getDocs(groupsCollection);
-      const groupsList = groupsSnapshot.docs.map(doc => doc.data());
+      const groupsList = groupsSnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+      }));
       setGroups(groupsList);
     }
     getGroups();
-    console.log('groups',groups);
-  }, []);
+  }
+    , []);
 
   const renderItem = ({ item }) => (
     <View style={styles.groupItem}>
