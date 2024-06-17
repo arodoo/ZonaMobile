@@ -11,10 +11,6 @@ export function ChatsScreen() {
 
   const headerProps = {
     title: 'Chats',
-    onBackPress: () => console.log('Volver atrás'),
-    onMenuPress: () => console.log('Abrir menú'),
-    onAvatarPress: () => console.log('Perfil del usuario'),
-    avatarUrl: 'https://robohash.org/mail@ashallendesign.co.uk',
   }
 
   const navigation = useNavigation();

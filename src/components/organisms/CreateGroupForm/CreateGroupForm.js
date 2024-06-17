@@ -1,10 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export function CreateGroupForm() {
+import { GoBackHeader } from '../../molecules'
+
+export function CreateGroupForm({ navigation }) {
   return (
     <View>
-      <Text>CreateGroupForm</Text>
+      <GoBackHeader title='Create Group' onPress={() => navigation.goBack()} />
+      <Text>Create Group Form</Text>
     </View>
   )
 }

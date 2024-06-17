@@ -1,6 +1,6 @@
 export * from './Title/Title'
 export * from './MenuBtn/MenuBtn'
-export * from './goBackBtn/goBackBtn'
+export * from './GoBackBtn/goBackBtn'
 export * from './UserAvatar/UserAvatar'
 export * from './ExpandableButton/ExpandableButton'
 export * from './CenterButton/CenterButton'

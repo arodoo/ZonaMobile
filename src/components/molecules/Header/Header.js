@@ -3,17 +3,28 @@ import { View, StyleSheet, StatusBar, Platform } from 'react-native';
 import { MenuBtn, Title, UserAvatar } from '../../atoms';
 import { colors } from '../../../styles/colors';
 
-export const Header = ({ title, onMenuPress, onAvatarPress, avatarUrl }) => {
+export const Header = ({ title }) => {
+
+    const pressMenu = () => {
+        console.log('Abrir menú');
+    }
+
+    const pressAvatar = () => {
+        console.log('Perfil del usuario');
+    }
+
+    const avatarUrl = 'https://robohash.org/mail@ashallendesign.co.uk';
+
     return (
         <View style={styles.headerContainer}>
             <View style={styles.statusBarPadding} />
             <View style={styles.headerContent}>
                 <View style={styles.headerLeft}>
-                    {onAvatarPress && <UserAvatar onPress={onAvatarPress} avatarUrl={avatarUrl} />}
+                    {pressAvatar && <UserAvatar onPress={pressAvatar} avatarUrl={avatarUrl} />}
                 </View>
                 <Title text={title} />
                 <View style={styles.headerRight}>
-                    {onMenuPress && <MenuBtn onPress={onMenuPress} />}
+                    {pressMenu && <MenuBtn onPress={pressMenu} />}
                 </View>
             </View>
         </View>
@@ -26,13 +37,12 @@ const styles = StyleSheet.create({
     },
     statusBarPadding: {
         height: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-        backgroundColor: '#ffffff', // Asegúrate de que el color de fondo sea el mismo que el del encabezado
+        backgroundColor: '#ffffff', 
     },
     headerContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // Aquí puedes agregar cualquier otro estilo que necesites para el contenido del encabezado
     },
     headerLeft: {
         flex: 1,
