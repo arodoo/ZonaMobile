@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { MainAppTemplate } from '../../../components';
+import { CreateButton } from '../../../components';
 
 import { GroupsList } from '../../../components';
 
@@ -19,6 +20,7 @@ export function ChatsScreen() {
   return (
     <MainAppTemplate headerProps={headerProps}>
       <View style={styles.container}>
+        <CreateButton title='Crear grupo' onPress={() => console.log('Create Group')} />
         <GroupsList />
       </View>
     </MainAppTemplate>
