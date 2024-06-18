@@ -13,7 +13,7 @@ export const GoBackHeader = ({ title, onPress }) => {
     return (
         <View style={styles.headerContainer}>
             <TouchableOpacity style={styles.backButton} onPress={onPress}>
-                <Ionicons name="arrow-back" size={24} color="black" />
+                <Ionicons name="arrow-back" size={28} color="black" />
             </TouchableOpacity>
             <Text style={styles.title}>{title}</Text>
         </View>
