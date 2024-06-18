@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Button, Input, Text, Image } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+import { Button, Input, Icon, Text, Image } from '@rneui/base';
 import * as ImagePicker from 'expo-image-picker';
 import { useFormik } from 'formik';
 import Toast from 'react-native-toast-message';
@@ -10,9 +11,9 @@ import { styles } from './CreateGroupForm.styles';
 import { GoBackHeader } from '../../molecules';
 
 export function CreateGroupForm({ navigation }) {
-  const [imageUri, setImageUri] = useState(null);
+  const NO_IMAGE_URI = 'https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-profile-user-icon.png';
+  const [imageUri, setImageUri] = useState(NO_IMAGE_URI);
 
-  console.log('primer log');
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
@@ -41,7 +42,6 @@ export function CreateGroupForm({ navigation }) {
       }
     }
   });
-  console.log('segundo log');
 
   const handleImagePicker = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -62,50 +62,50 @@ export function CreateGroupForm({ navigation }) {
     });
 
     if (!result.canceled) {
-      setImageUri(result.uri);
+      const asset = result.assets[0];
+      const uri = asset.uri;
+      setImageUri(uri);
     }
   };
 
-  console.log('tercer log');
+  console.log('loaded');
 
   return (
     <View style={styles.container}>
       <GoBackHeader />
       <Text style={styles.title}>Crear grupo</Text>
-      <Input
-        style={styles.input}
-        label="Nombre"
-        placeholder="Nombre del grupo"
-        onChangeText={formik.handleChange('name')}
-        value={formik.values.name}
-        errorMessage={formik.touched.name && formik.errors.name}
-      />
+
+      <View style={styles.form}>
+        {imageUri === NO_IMAGE_URI ? (
+          <TouchableOpacity onPress={handleImagePicker}>
+            <Image source={{ uri: NO_IMAGE_URI }} style={styles.image} />
+            <Text></Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={handleImagePicker}>
+            <Image source={{ uri: imageUri }} style={styles.image} />
+          </TouchableOpacity>
+        )}
+        <Input
+          style={styles.input}
+          label="Nombre"
+          placeholder="Nombre del grupo"
+          onChangeText={formik.handleChange('name')}
+          onBlur={formik.handleBlur('name')}
+          value={formik.values.name}
+          errorMessage={formik.touched.name && formik.errors.name}
+        />
+        <Input
+          style={styles.input}
+          label="Asunto"
+          placeholder="Asunto del grupo"
+          onChangeText={formik.handleChange('description')}
+          onBlur={formik.handleBlur('description')}
+          value={formik.values.description}
+          errorMessage={formik.touched.description && formik.errors.description}
+        />
+        <Button title="Crear grupo" onPress={formik.handleSubmit} buttonStyle={styles.btnSave} />
       </View>
+    </View>
   );
 }
-
-{/* <View style={styles.container}>
-  <GoBackHeader />
-  <Text style={styles.title}>Crear grupo</Text>
-  <Input
-    style={styles.input}
-    label="Nombre"
-    placeholder="Nombre del grupo"
-    onChangeText={formik.handleChange('name')}
-    onBlur={formik.handleBlur('name')}
-    value={formik.values.name}
-    errorMessage={formik.touched.name && formik.errors.name}
-  />
-  <Input
-    style={styles.input}
-    label="Descripción"
-    placeholder="Descripción del grupo"
-    onChangeText={formik.handleChange('description')}
-    onBlur={formik.handleBlur('description')}
-    value={formik.values.description}
-    errorMessage={formik.touched.description && formik.errors.description}
-  />
-  <Button title="Seleccionar imagen" onPress={handleImagePicker} />
-  {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
-  <Button title="Crear grupo" onPress={formik.handleSubmit} />
-</View> */}
