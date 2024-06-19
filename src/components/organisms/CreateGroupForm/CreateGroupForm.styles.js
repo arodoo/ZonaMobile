@@ -40,5 +40,6 @@ export const styles = StyleSheet.create({
         borderRadius: 50,
         alignSelf: 'center',
         marginBottom: 20,
+        backgroundColor: '#ddd',
     },
 });

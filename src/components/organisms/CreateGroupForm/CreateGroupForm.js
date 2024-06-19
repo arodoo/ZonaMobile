@@ -6,42 +6,28 @@ import { useFormik } from 'formik';
 import Toast from 'react-native-toast-message';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getFirestore, doc, updateDoc } from 'firebase/firestore'; // Importa las funciones de Firestore
+
 import { initialValues, validationSchema } from './CreateGroupForm.data';
-import { styles } from './CreateGroupForm.styles';
 import { GoBackHeader } from '../../molecules';
 
+import { styles } from './CreateGroupForm.styles';
+
 export function CreateGroupForm({ navigation }) {
-  const NO_IMAGE_URI = 'https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-profile-user-icon.png';
   const [imageUri, setImageUri] = useState(NO_IMAGE_URI);
+  
+  const NO_IMAGE_URI = require('../../../assets/img/no-image-selected.png');
+  
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      try {
-        const storage = getStorage();
-        const storageRef = ref(storage, `groups/${formValue.name}`);
-        await uploadBytes(storageRef, imageUri);
-        const imageUrl = await getDownloadURL(storageRef);
-
-        const db = getFirestore();
-        await updateDoc(doc(db, 'groups', formValue.name), {
-          name: formValue.name,
-          description: formValue.description,
-          imageUrl: imageUrl,
-        });
-
-        navigation.navigate('Home');
-      } catch (error) {
-        Toast.show({
-          type: 'error',
-          position: 'bottom',
-          text1: 'Error al crear el grupo',
-        });
-      }
-    }
+      console.log(formValue);
+      //navigation.navigate('Home');
+    },
   });
+
 
   const handleImagePicker = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -65,10 +51,20 @@ export function CreateGroupForm({ navigation }) {
       const asset = result.assets[0];
       const uri = asset.uri;
       setImageUri(uri);
+      uploadImage(uri);
     }
   };
 
-  console.log('loaded');
+  const uploadImage = async (uri) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const storage = getStorage();
+    const storageRef = ref(storage, `groups/${formik.values.name}`);
+    await uploadBytes(storageRef, blob);
+    const imageUrl = await getDownloadURL(storageRef);
+    return imageUrl;
+  };
+
 
   return (
     <View style={styles.container}>
@@ -78,7 +74,7 @@ export function CreateGroupForm({ navigation }) {
       <View style={styles.form}>
         {imageUri === NO_IMAGE_URI ? (
           <TouchableOpacity onPress={handleImagePicker}>
-            <Image source={{ uri: NO_IMAGE_URI }} style={styles.image} />
+            <Image source={NO_IMAGE_URI} style={styles.image} />
             <Text></Text>
           </TouchableOpacity>
         ) : (
