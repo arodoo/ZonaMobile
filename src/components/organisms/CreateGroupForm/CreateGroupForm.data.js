@@ -15,7 +15,5 @@ export function validationSchema() {
             .required('El nombre es requerido'),
         description: Yup.string()
             .required('La descripción es requerida'),
-        imageUrl: Yup.string()
-            .required('La imagen es requerida'),
     });
 }

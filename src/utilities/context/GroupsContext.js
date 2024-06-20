@@ -1,8 +1,6 @@
-//Context to get groups
 import React, { createContext, useState, useEffect } from 'react';
-
-//import firebase functions
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 
 export const GroupsContext = createContext();
 
@@ -12,15 +10,17 @@ export function GroupsProvider({ children }) {
     useEffect(() => {
         const db = getFirestore();
         const groupsCollection = collection(db, 'groups');
-        const getGroups = async () => {
-            const groupsSnapshot = await getDocs(groupsCollection);
-            const groupsList = groupsSnapshot.docs.map(doc => ({
-                ...doc.data(),
-                id: doc.id
+
+        const unsuscribe = onSnapshot(groupsCollection, (snapshot) => {
+            const groupList = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
             }));
-            setGroups(groupsList);
+            setGroups(groupList);
         }
-        getGroups();
+        );
+
+        return () => unsuscribe();
     }, []);
 
     return (

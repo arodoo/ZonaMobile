@@ -1,59 +1,54 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
 import { Button, Input, Icon, Text, Image } from '@rneui/base';
-import * as ImagePicker from 'expo-image-picker';
 import { useFormik } from 'formik';
 import Toast from 'react-native-toast-message';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getFirestore, doc, updateDoc } from 'firebase/firestore'; // Importa las funciones de Firestore
+import { getFirestore, doc, updateDoc, setDoc, collection } from 'firebase/firestore'; // Importa las funciones de Firestore
 
 import { initialValues, validationSchema } from './CreateGroupForm.data';
 import { GoBackHeader } from '../../molecules';
+import { ImagePickerComponent } from '../../molecules/ImagePicker/ImagePicker';
 
 import { styles } from './CreateGroupForm.styles';
 
 export function CreateGroupForm({ navigation }) {
-  const [imageUri, setImageUri] = useState(NO_IMAGE_URI);
-  
-  const NO_IMAGE_URI = require('../../../assets/img/no-image-selected.png');
-  
+
+
+  const [imageUri, setImageUri] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      console.log(formValue);
-      //navigation.navigate('Home');
+      setLoading(true);
+      const db = getFirestore();
+      const groupRef = doc(collection(db, 'groups'));
+
+      try {
+        const imgUrl = await uploadImage(imageUri);
+        await setDoc(groupRef, { ...formValue, imgUrl });
+
+        Toast.show({
+          type: 'success',
+          position: 'bottom',
+          text1: 'Grupo creado',
+        });
+        navigation.goBack();
+      } catch (error) {
+        console.error(error);
+        Toast.show({
+          type: 'error',
+          position: 'bottom',
+          text1: 'Error al crear el grupo',
+        });
+      } finally {
+        setLoading(false);
+      }
     },
   });
-
-
-  const handleImagePicker = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      Toast.show({
-        type: 'error',
-        position: 'bottom',
-        text1: 'Permiso denegado',
-      });
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const asset = result.assets[0];
-      const uri = asset.uri;
-      setImageUri(uri);
-      uploadImage(uri);
-    }
-  };
 
   const uploadImage = async (uri) => {
     const response = await fetch(uri);
@@ -65,23 +60,16 @@ export function CreateGroupForm({ navigation }) {
     return imageUrl;
   };
 
-
   return (
     <View style={styles.container}>
       <GoBackHeader />
-      <Text style={styles.title}>Crear grupo</Text>
+      <Text style={styles.title}></Text>
 
       <View style={styles.form}>
-        {imageUri === NO_IMAGE_URI ? (
-          <TouchableOpacity onPress={handleImagePicker}>
-            <Image source={NO_IMAGE_URI} style={styles.image} />
-            <Text></Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={handleImagePicker}>
-            <Image source={{ uri: imageUri }} style={styles.image} />
-          </TouchableOpacity>
-        )}
+        <ImagePickerComponent
+          imageUri={imageUri}
+          setImageUri={setImageUri}
+        />
         <Input
           style={styles.input}
           label="Nombre"
@@ -100,7 +88,11 @@ export function CreateGroupForm({ navigation }) {
           value={formik.values.description}
           errorMessage={formik.touched.description && formik.errors.description}
         />
-        <Button title="Crear grupo" onPress={formik.handleSubmit} buttonStyle={styles.btnSave} />
+        <Button
+          title="Crear grupo"
+          onPress={formik.handleSubmit}
+          disabled={!formik.isValid || loading || !imageUri}
+          buttonStyle={styles.btnSave} />
       </View>
     </View>
   );

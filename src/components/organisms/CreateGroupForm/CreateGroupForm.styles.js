@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
         marginVertical: 20,
     },
     btnSave: {
-        backgroundColor: colors.color4,
+        backgroundColor: colors.color3,
         paddingVertical: 15,
         borderRadius: 8,
         shadowColor: '#000',
