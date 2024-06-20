@@ -10,6 +10,9 @@ import { initialValues, validationSchema } from './CreateGroupForm.data';
 import { GoBackHeader } from '../../molecules';
 import { ImagePickerComponent } from '../../molecules/ImagePicker/ImagePicker';
 
+//services
+import { createGroup } from '../../../services';
+
 import { styles } from './CreateGroupForm.styles';
 
 export function CreateGroupForm({ navigation }) {
@@ -24,41 +27,28 @@ export function CreateGroupForm({ navigation }) {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       setLoading(true);
-      const db = getFirestore();
-      const groupRef = doc(collection(db, 'groups'));
-
+      //console.log(formValue, imageUri);
       try {
-        const imgUrl = await uploadImage(imageUri);
-        await setDoc(groupRef, { ...formValue, imgUrl });
-
-        Toast.show({
-          type: 'success',
-          position: 'bottom',
-          text1: 'Grupo creado',
-        });
-        navigation.goBack();
+        const groupId = await createGroup(formValue, imageUri);
+        console.log(groupId);
+        if (groupId) {
+          navigation.goBack();
+        }
       } catch (error) {
-        console.error(error);
         Toast.show({
           type: 'error',
-          position: 'bottom',
-          text1: 'Error al crear el grupo',
+          text1: 'Error',
+          text2: error.message,
+          visibilityTime: 3000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
         });
       } finally {
         setLoading(false);
       }
-    },
+    }
   });
-
-  const uploadImage = async (uri) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    const storage = getStorage();
-    const storageRef = ref(storage, `groups/${formik.values.name}`);
-    await uploadBytes(storageRef, blob);
-    const imageUrl = await getDownloadURL(storageRef);
-    return imageUrl;
-  };
 
   return (
     <View style={styles.container}>
