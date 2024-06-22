@@ -5,11 +5,7 @@ import { MainAppTemplate } from '../../../components'
 
 export function MapScreen() {
   const headerProps = {
-    title: 'Mapa',
-    onBackPress: () => console.log('Volver atrás'),
-    onMenuPress: () => console.log('Abrir menú'),
-    onAvatarPress: () => console.log('Perfil del usuario'),
-    avatarUrl: 'https://robohash.org/mail@ashallendesign.co.uk',
+    title: 'Mapa'
   };
   return (
     <MainAppTemplate headerProps={headerProps}>

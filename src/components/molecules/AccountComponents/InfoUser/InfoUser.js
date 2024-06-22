@@ -17,6 +17,7 @@ export function InfoUser(props) {
     // Pedir los permisos de la galería solo una vez cuando se monta el componente
     useEffect(() => {
         checkAndRequestPermissions();
+        console.log(props);
     }, []);
 
     const checkAndRequestPermissions = async () => {
