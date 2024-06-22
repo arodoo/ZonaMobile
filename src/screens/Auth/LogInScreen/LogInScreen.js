@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { View, ImageBackground } from 'react-native'
 import { Button, Input, Icon, Text } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import Toast from 'react-native-toast-message'
 import { useFormik } from 'formik';
 
 import { initialValues, validationSchema } from './LogInScreen.data'
-import { firebaseAuthStatePersistance } from '../../../utilities/config/firebase'
+import { login } from '../../../services'
 import { screenName } from '../../../utilities/'
 
 import { styles } from './LogInScreen.styles'
@@ -27,24 +26,11 @@ export function LogInScreen() {
         validateOnChange: false,
         onSubmit: async (formValue) => {
             try {
-                await signInWithEmailAndPassword(
-                    firebaseAuthStatePersistance,
-                    formValue.email,
-                    formValue.password
-                ).then((userCredentials) => {
-                    const user = userCredentials.user
-                    Toast.show({
-                        type: 'success',
-                        text1: 'Bienvenido',
-                        text2: user.email,
-                        visibilityTime: 3000,
-                        autoHide: true,
-                        topOffset: 30,
-                        bottomOffset: 40,
-                    })
-                   
+                const user = await login(formValue.email, formValue.password)
+                if (user) {
+                    //firebaseAuthStatePersistance()
                     navigation.navigate(screenName.home.tab)
-                })
+                }
             } catch (error) {
                 Toast.show({
                     type: 'error',

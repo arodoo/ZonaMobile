@@ -12,10 +12,6 @@ export function ProfileScreen() {
 
   const headerProps = {
     title: 'Perfil',
-    onBackPress: () => console.log('Volver atrás'),
-    onMenuPress: () => console.log('Abrir menú'),
-    onAvatarPress: () => console.log('Perfil del usuario'),
-    avatarUrl: 'https://robohash.org/mail@ashallendesign.co.uk',
   };
 
   const [loading, setLoading] = useState(false)
